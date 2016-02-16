@@ -1,5 +1,9 @@
+require "faraday"
+require "json"
+
 require "tinplate/version"
 require "tinplate/configuration"
+require "tinplate/tineye"
 
 module Tinplate
   class << self
