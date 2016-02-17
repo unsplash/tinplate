@@ -21,7 +21,8 @@ module Tinplate
     private
 
     def request(action, params = {})
-      params.merge!(authentication_params(action, params))
+      auth = Tinplate::RequestAuthenticator.new(action, params)
+      params.merge!(auth.params)
 
       response = ::JSON.parse(connection.get("#{action}/", params).body)
 
@@ -39,45 +40,6 @@ module Tinplate
         faraday.adapter  Faraday.default_adapter
       end
     end
-
-    def authentication_params(action, params = {}, image_name = "")
-
-      nonce = SecureRandom.hex
-      date  = Time.now.to_i
-
-      sig_components = [
-        Tinplate.configuration.private_key,
-        "GET",
-        "", # Content-Type for GET requests is blank
-        URI.encode(image_name).downcase,
-        date,
-        nonce,
-        "http://api.tineye.com/rest/#{action}/",
-        hash_to_sorted_query_string(params),
-      ]
-
-      {
-        api_key: Tinplate.configuration.public_key,
-        api_sig: signature(sig_components),
-        nonce:   nonce,
-        date:    date
-      }
-    end
-
-    def signature(components)
-      OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"),
-                              Tinplate.configuration.private_key,
-                              components.join)
-    end
-
-    def hash_to_sorted_query_string(params)
-      Hash[params.sort].map do |key, value|
-        "#{key}=#{URI.encode_www_form_component(value)}"
-      end.join("&")
-    end
-
-    
-
 
   end
 
