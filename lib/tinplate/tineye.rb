@@ -10,7 +10,7 @@ module Tinplate
     end
 
     def image_count
-      request "image_count"
+      request("image_count")["results"]
     end
 
 
@@ -19,13 +19,18 @@ module Tinplate
     def request(action, params = {})
       params.merge!(authentication_params(action, params))
 
-      response = connection.get "#{action}/", params
-      ::JSON.parse(response.body)
+      response = ::JSON.parse(connection.get("#{action}/", params).body)
+
+      if response["code"] != 200
+        raise Tinplate::Error.new(response["code"], response["messages"][0], response["messages"][1])
+      end
+
+      response
     end
 
     def connection
-      @conn ||= Faraday.new(:url => "http://api.tineye.com/rest/") do |faraday|
-        faraday.request  :url_encoded           
+      @conn ||= Faraday.new(url: "http://api.tineye.com/rest/") do |faraday|
+        faraday.request  :url_encoded
         faraday.response :logger                
         faraday.adapter  Faraday.default_adapter
       end

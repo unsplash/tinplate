@@ -4,6 +4,7 @@ require "json"
 require "tinplate/version"
 require "tinplate/configuration"
 require "tinplate/tineye"
+require "tinplate/errors"
 
 module Tinplate
   class << self
