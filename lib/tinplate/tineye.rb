@@ -7,6 +7,10 @@ module Tinplate
     end
 
     def remaining_searches
+      results = request("remaining_searches")["results"]
+      OpenStruct.new(remaining_searches: results["remaining_searches"],
+                     start_date:  DateTime.parse(results["start_date"]),
+                     expire_date: DateTime.parse(results["expire_date"]))
     end
 
     def image_count
