@@ -112,7 +112,7 @@ describe Tinplate::TinEye do
     end
   end
 
-  describe "remaining_searches" do
+  describe "#remaining_searches" do
     let(:valid_response) do
       {
         stats: {
@@ -148,7 +148,7 @@ describe Tinplate::TinEye do
     end
   end
 
-  describe "image_count" do
+  describe "#image_count" do
     let(:valid_response) do
       {
         stats: {

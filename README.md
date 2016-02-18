@@ -20,8 +20,52 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+There are only three API action available: `search`, `remaining_searches` (to check the status of your account), and `image_count` (if you're curious how many total images TinEye has indexed).
 
+`remaining_searches` returns an `OpenStruct` object with three attributes: `remaining_searches`, `start_date`, and `expire_date`.
+
+`image_count` returns a plain old integer.
+
+### Search example
+
+*Note: this gem does not (yet) support searching by image upload, only by image URL.*
+
+```ruby
+tineye = Tinplate::TinEye.new
+results = tineye.search(image_url: "http://example.com/photo.jpg")
+
+results.total_results    # => 2
+results.total_backlinks  # => 3
+results.matches          # => an Array of matched images (see below)
+
+results.matches.each do |match|
+  # Do what you like with this matched image. The world is your oyster.
+end
+```
+
+#### Example matched image
+
+An `OpenStruct` object with the following attributes (/w example values):
+
+```ruby
+width: 400
+height: 300
+size: 50734
+image_url: "http://images.tineye.com/result/0f1e84b7b7538e8e7de048f4d45eb8f579e3e999941b3341ed9a754eb447ebb1",
+format: "JPEG",
+contributor: true,
+overlay: "overlay/507bb6bf9a397284e2330be7c0671aadc7319b4b/0f1e84b7b7538e8e7de048f4d45eb8f579e3e999941b3341ed9a754eb447ebb1?m21=-9.06952e-05&m22=0.999975&m23=0.0295591&m11=0.999975&m13=-0.0171177&m12=9.06952e-05",
+backlinks:
+  # These are also an OpenStruct objects, not Hashes.
+  [
+    {
+      url: "http://example-copier.com/photo.jpg",
+      crawl_date: "2012-06-30",
+      backlink: "http://example-copier.com/photo.jpg"
+    }
+  ]
+```
+  
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
