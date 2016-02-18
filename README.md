@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-There are only three API action available: `search`, `remaining_searches` (to check the status of your account), and `image_count` (if you're curious how many total images TinEye has indexed).
+There are only three API actions available: `search`, `remaining_searches` (to check the status of your account), and `image_count` (if you're curious how many total images TinEye has indexed).
 
 `remaining_searches` returns an `OpenStruct` object with three attributes: `remaining_searches`, `start_date`, and `expire_date`.
 
@@ -42,6 +42,13 @@ results.matches.each do |match|
   # Do what you like with this matched image. The world is your oyster.
 end
 ```
+
+#### Optional search parameters
+
+`offset`: Default 0    
+`limit`:  Default 100    
+`sort`:   "score", "size", or "crawl_date". Default "score".    
+`order`:  "asc" or "desc". Default "desc".
 
 #### Example matched image
 
