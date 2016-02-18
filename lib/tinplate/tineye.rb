@@ -1,9 +1,15 @@
 module Tinplate
   class TinEye
+    SORTS  = ["score", "size", "crawl_date"]
+    ORDERS = ["asc", "desc"]
 
-    def search(image_url: nil, offset: 0, limit: 30)
-      image_url ||= "http://www.tineye.com/images/Tineye%20Logo.png"
-      request "search", image_url: image_url, offset: offset.to_s, limit: limit.to_s
+    def search(image_url: nil, offset: 0, limit: 100, sort: "score", order: "desc")
+      raise ArgumentError.new("You must supply an image_url") if !image_url
+      raise ArgumentError.new("sort must be one of #{SORTS.join(', ')}") if !SORTS.include?(sort)
+      raise ArgumentError.new("order must be one of #{ORDERS.join(', ')}") if !ORDERS.include?(order)
+
+      response = request "search", image_url: image_url, offset: offset.to_s, limit: limit.to_s, sort: sort, order: order
+      Tinplate::SearchResults.new(response["results"])
     end
 
     def remaining_searches
