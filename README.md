@@ -18,6 +18,21 @@ Or install it yourself as:
 
     $ gem install tinplate
 
+## Configuration
+
+First you've got to let Tinplate know what your TinEye API keys are. In a Rails app, for example, this would go in an initializer, e.g. `config/intitializers/tinplate.rb`:
+
+```ruby
+Tinplate.configure do |config|    
+  config.public_key  = "YOUR PUBLIC API KEY"    
+  config.private_key = "YOUR PRIVATE API KEY"    
+  config.test        = false
+end
+```
+
+If `test` is set to `true` (which is also the default), Tinplate will use [TinEye's test keys and sandbox environment](https://services.tineye.com/developers/tineyeapi/sandbox.html). 
+
+
 ## Usage
 
 There are only three API actions available: `search`, `remaining_searches` (to check the status of your account), and `image_count` (if you're curious how many total images TinEye has indexed).
