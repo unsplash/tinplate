@@ -23,14 +23,14 @@ Or install it yourself as:
 First you've got to let Tinplate know what your TinEye API keys are. In a Rails app, for example, this would go in an initializer, e.g. `config/intitializers/tinplate.rb`:
 
 ```ruby
-Tinplate.configure do |config|    
-  config.public_key  = "YOUR PUBLIC API KEY"    
-  config.private_key = "YOUR PRIVATE API KEY"    
+Tinplate.configure do |config|
+  config.public_key  = "YOUR PUBLIC API KEY"
+  config.private_key = "YOUR PRIVATE API KEY"
   config.test        = false
 end
 ```
 
-If `test` is set to `true` (which is also the default), Tinplate will use [TinEye's test keys and sandbox environment](https://services.tineye.com/developers/tineyeapi/sandbox.html). 
+If `test` is set to `true` (which is also the default), Tinplate will use [TinEye's test keys and sandbox environment](https://services.tineye.com/developers/tineyeapi/sandbox.html).
 
 
 ## Usage
@@ -60,9 +60,9 @@ end
 
 #### Optional search parameters
 
-`offset`: Default 0    
-`limit`:  Default 100    
-`sort`:   "score", "size", or "crawl_date". Default "score".    
+`offset`: Default 0
+`limit`:  Default 100
+`sort`:   "score", "size", or "crawl_date". Default "score".
 `order`:  "asc" or "desc". Default "desc".
 
 #### Example matched image
@@ -87,10 +87,10 @@ backlinks:
     }
   ]
 ```
-  
+
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
