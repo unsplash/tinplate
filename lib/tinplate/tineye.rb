@@ -33,7 +33,7 @@ module Tinplate
       response = ::JSON.parse(connection.get("#{action}/", params).body)
 
       if response["code"] != 200
-        raise Tinplate::Error.new(response["code"], response["messages"][0], response["messages"][1])
+        raise Tinplate::Error.from_response(response["code"], response["messages"][0], response["messages"][1])
       end
 
       response
@@ -42,7 +42,7 @@ module Tinplate
     def connection
       @conn ||= Faraday.new(url: "http://api.tineye.com/rest/") do |faraday|
         faraday.request  :url_encoded
-        faraday.response :logger                
+        faraday.response :logger
         faraday.adapter  Faraday.default_adapter
       end
     end
