@@ -60,9 +60,9 @@ end
 
 #### Optional search parameters
 
-`offset`: Default 0
-`limit`:  Default 100
-`sort`:   "score", "size", or "crawl_date". Default "score".
+`offset`: Default 0    
+`limit`:  Default 100    
+`sort`:   "score", "size", or "crawl_date". Default "score".    
 `order`:  "asc" or "desc". Default "desc".
 
 #### Example matched image
