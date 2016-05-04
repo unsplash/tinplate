@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["aaron@crew.co"]
 
   spec.summary       = %q{A wrapper around the TinEye API.}
-  spec.homepage      = "https://github.com/CrewLabs/tinplate"
+  spec.homepage      = "https://github.com/unsplash/tinplate"
   spec.license       = "MIT"
 
 

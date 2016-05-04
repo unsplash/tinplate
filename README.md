@@ -60,9 +60,9 @@ end
 
 #### Optional search parameters
 
-`offset`: Default 0
-`limit`:  Default 100
-`sort`:   "score", "size", or "crawl_date". Default "score".
+`offset`: Default 0    
+`limit`:  Default 100    
+`sort`:   "score", "size", or "crawl_date". Default "score".    
 `order`:  "asc" or "desc". Default "desc".
 
 #### Example matched image
@@ -96,7 +96,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/CrewLabs/tinplate. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/unsplash/tinplate. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
