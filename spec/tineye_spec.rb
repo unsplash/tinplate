@@ -4,7 +4,6 @@ describe Tinplate::TinEye do
   # The valid responses here are all taken straight from the API doc examples at:
   # https://services.tineye.com/developers/tineyeapi/overview.html
 
-
   let(:tineye) { Tinplate::TinEye.new }
   let(:error_response) do
     {
@@ -14,6 +13,18 @@ describe Tinplate::TinEye do
       },
       code:     400,
       messages: ["API_ERROR", "Couldn't download URL, caught exception: HTTPError()"],
+      results:  []
+    }.to_json
+  end
+
+  let(:no_signature_error_response) do
+    {
+      stats: {
+        timestamp: "1331923111.71",
+        query_time: "0.51"
+      },
+      code:     500,
+      messages: ["NO_SIGNATURE_ERROR", "Image too simple or too small to create unique signature."],
       results:  []
     }.to_json
   end
@@ -56,7 +67,7 @@ describe Tinplate::TinEye do
                   crawl_date: "2012-06-30",
                   backlink: "http://www.meetup.com/geneva-meetup/calendar/11331213/"
                 },
-                { 
+                {
                   url: "http://photos3.meetupstatic.com/photos/event/a/7/2/5/global_5622789.jpeg",
                   crawl_date: "2012-06-29",
                   backlink: "http://www.meetup.com/geneva-meetup/calendar/11316812/"
@@ -85,12 +96,22 @@ describe Tinplate::TinEye do
       expect(results.matches.first.backlinks.first).to be_a OpenStruct
     end
 
-    it "raises on non-200 response" do
-      connection = double(get: double(body: error_response))
-      allow(tineye).to receive(:connection).and_return(connection)
-      expect {
-        tineye.search(image_url: "http://example.com/photo.jpg")
-      }.to raise_error(Tinplate::Error)
+    context "when the API returns an error" do
+      it "raises a generic error by default" do
+        connection = double(get: double(body: error_response))
+        allow(tineye).to receive(:connection).and_return(connection)
+        expect {
+          tineye.search(image_url: "http://example.com/photo.jpg")
+        }.to raise_error(Tinplate::Error)
+      end
+
+      it "raises a NoSignatureError" do
+        connection = double(get: double(body: no_signature_error_response))
+        allow(tineye).to receive(:connection).and_return(connection)
+        expect {
+          tineye.search(image_url: "http://example.com/photo.jpg")
+        }.to raise_error(Tinplate::NoSignatureError)
+      end
     end
 
     it "errors without an image_url parameter" do
@@ -132,7 +153,7 @@ describe Tinplate::TinEye do
     it "returns parsed object" do
       connection = double(get: double(body: valid_response))
       allow(tineye).to receive(:connection).and_return(connection)
-      
+
       remaining = tineye.remaining_searches
       expect(remaining.remaining_searches).to eq 24998
       expect(remaining.start_date).to  eq DateTime.parse("2009-09-18 16:01:49 UTC")
@@ -174,6 +195,5 @@ describe Tinplate::TinEye do
         tineye.image_count
       }.to raise_error(Tinplate::Error)
     end
-
   end
 end
