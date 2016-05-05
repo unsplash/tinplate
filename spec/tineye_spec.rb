@@ -110,7 +110,7 @@ describe Tinplate::TinEye do
         allow(tineye).to receive(:connection).and_return(connection)
         expect {
           tineye.search(image_url: "http://example.com/photo.jpg")
-        }.to raise_error(Tinplate::Error)
+        }.to raise_error(Tinplate::NoSignatureError)
       end
     end
 
