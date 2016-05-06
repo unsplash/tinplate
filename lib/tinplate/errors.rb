@@ -14,7 +14,7 @@ module Tinplate
     end
   end
 
-  class ServiceUnvailableError < Error; end
+  class ServiceUnavailableError < Error; end
   class NoSignatureError < Error; end
   class NoCreditsRemainingError < Error; end
 end
