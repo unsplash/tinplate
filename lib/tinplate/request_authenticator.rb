@@ -1,5 +1,8 @@
 # https://services.tineye.com/developers/tineyeapi/authentication.html
 
+require "securerandom"
+require "uri"
+
 module Tinplate
   class RequestAuthenticator
 
