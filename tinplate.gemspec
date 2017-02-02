@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "tinplate"
   spec.version       = Tinplate::VERSION
   spec.authors       = ["Aaron Klaassen"]
-  spec.email         = ["aaron@crew.co"]
+  spec.email         = ["aaron@unsplash.com"]
 
   spec.summary       = %q{A wrapper around the TinEye API.}
   spec.homepage      = "https://github.com/unsplash/tinplate"
