@@ -23,20 +23,34 @@ module Tinplate
       }
     end
 
+    def verb
+      @image_name ? "POST" : "GET"
+    end
+
+    def content_type
+      @verb == "GET" ? "" : "multipart/form-data; boundary=-----------RubyMultipartPost"
+      #@verb == "GET" ? "" : "multipart/form-data; boundary=d8b4f160da95---------------d8b4f160da95"
+    end
+
     def signature_components
-      [
+      s= [
         Tinplate.configuration.private_key,
-        "GET",
-        "", # Content-Type for GET requests is blank
-        URI.encode(@image_name).downcase,
+        verb,
+        content_type,
+        URI.encode_www_form_component(@image_name).downcase,
         @date.to_i,
         @nonce,
-        "http://api.tineye.com/rest/#{@action}/",
+        "https://api.tineye.com/rest/#{@action}/",
         hash_to_sorted_query_string(@params),
       ]
+      #binding.pry
+      s
     end
 
     def signature
+      puts "CORRECT STRING: vibaHBXwUXFqVSg-+kTrqYJZEJkbVeqLc=bo.LlXPOSTmultipart/form-data; boundary=d8b4f160da95---------------d8b4f160da95tineye+logo%281%29.png1350511031wAqXrSG7mJPn5YA6cwDalG.Shttps://api.tineye.com/rest/search/limit=30&offset=0"
+      puts "     MY STRING: #{signature_components.join}"
+
       OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"),
                               Tinplate.configuration.private_key,
                               signature_components.join)
