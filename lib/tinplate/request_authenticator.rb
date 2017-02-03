@@ -45,9 +45,6 @@ module Tinplate
     end
 
     def signature
-      #puts "CORRECT STRING: vibaHBXwUXFqVSg-+kTrqYJZEJkbVeqLc=bo.LlXPOSTmultipart/form-data; boundary=d8b4f160da95---------------d8b4f160da95tineye+logo%281%29.png1350511031wAqXrSG7mJPn5YA6cwDalG.Shttps://api.tineye.com/rest/search/limit=30&offset=0"
-      #puts "     MY STRING: #{signature_components.join}"
-
       OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"),
                               Tinplate.configuration.private_key,
                               signature_components.join)

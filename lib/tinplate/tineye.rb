@@ -14,12 +14,9 @@ module Tinplate
         sort: sort,
         order: order
       }
+      img = image_url ? { image_url: image_url } : { image_path: image_path }
 
-      response = if image_url
-        get_request "search", options.merge(image_url: image_url)
-      elsif image_path
-        post_request "search", options.merge(image_path: image_path)
-      end
+      response = request("search", options.merge(img))
 
       Tinplate::SearchResults.new(response["results"])
     end
@@ -35,31 +32,26 @@ module Tinplate
       request("image_count")["results"]
     end
 
-
     private
 
-    def get_request(action, params = {})
-      auth = Tinplate::RequestAuthenticator.new(action, params)
+    def request(action, params = {})
+      http_verb = :get
+
+      upload = if params[:image_path]
+        http_verb = :post
+        Faraday::UploadIO.new(params.delete(:image_path), "image/jpeg")
+      end
+
+      auth = Tinplate::RequestAuthenticator.new(action, params, upload && upload.original_filename)
       params.merge!(auth.params)
 
-      response = ::JSON.parse(connection.get("#{action}/", params).body)
+      params.merge!(image_upload: upload) if upload
+
+      response = ::JSON.parse(connection.send(http_verb, "#{action}/", params).body)
 
       if response["code"] != 200
         raise Tinplate::Error.from_response(response["code"], response["messages"][0], response["messages"][1])
       end
-
-      response
-    end
-
-    def post_request(action, params = {})
-      image = params.delete(:image_path)
-
-      auth = Tinplate::RequestAuthenticator.new(action, params, image)
-      params.merge!(auth.params)
-
-      params.merge!(image_upload: Faraday::UploadIO.new(image, "image/jpeg"))
-
-      response = ::JSON.parse(connection.post("#{action}/", params).body)
 
       response
     end

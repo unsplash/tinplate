@@ -84,11 +84,29 @@ describe Tinplate::TinEye do
       }.to_json
     end
 
-    it "parses results" do
+    it "parses results from URL search" do
       connection = double(get: double(body: valid_response))
       allow(tineye).to receive(:connection).and_return(connection)
 
       results = tineye.search(image_url: "http://example.com/photo.jpg")
+      expect(results.total_results).to eq 2
+      expect(results.total_backlinks).to eq 3
+      expect(results.matches.count). to eq 2
+
+      expect(results.matches.first.backlinks.first).to be_a OpenStruct
+    end
+
+    it "parses results from upload search" do
+      path = "/home/jim/example.jpg"
+
+      connection = double(post: double(body: valid_response))
+      upload = double(original_filename: "example.jpg")
+
+      allow(tineye).to receive(:connection).and_return(connection)
+      allow(Faraday::UploadIO).to receive(:new).with(path, "image/jpeg").and_return upload
+
+      results = tineye.search(image_path: path)
+
       expect(results.total_results).to eq 2
       expect(results.total_backlinks).to eq 3
       expect(results.matches.count). to eq 2
