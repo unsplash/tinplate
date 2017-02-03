@@ -41,9 +41,9 @@ There are only three API actions available: `search`, `remaining_searches` (to c
 
 `image_count` returns a plain old integer.
 
-### Search example
+### Search examples
 
-*Note: this gem does not (yet) support searching by image upload, only by image URL.*
+#### Search by URL
 
 ```ruby
 tineye = Tinplate::TinEye.new
@@ -56,6 +56,13 @@ results.matches          # => an Array of matched images (see below)
 results.matches.each do |match|
   # Do what you like with this matched image. The world is your oyster.
 end
+```
+
+#### Search by upload
+
+```ruby
+tineye = Tinplate::TinEye.new
+results = tineye.search(image_path: "/home/alice/example.jpg")
 ```
 
 #### Optional search parameters
@@ -78,7 +85,7 @@ format: "JPEG",
 contributor: true,
 overlay: "overlay/507bb6bf9a397284e2330be7c0671aadc7319b4b/0f1e84b7b7538e8e7de048f4d45eb8f579e3e999941b3341ed9a754eb447ebb1?m21=-9.06952e-05&m22=0.999975&m23=0.0295591&m11=0.999975&m13=-0.0171177&m12=9.06952e-05",
 backlinks:
-  # These are also an OpenStruct objects, not Hashes.
+  # These are also OpenStruct objects, not Hashes.
   [
     {
       url: "http://example-copier.com/photo.jpg",
