@@ -9,7 +9,7 @@ module Tinplate
     def initialize(action, params = {}, image_name = "")
       @action = action
       @params = params
-      @image_name = image_name
+      @image_name = image_name || ""
       @nonce = SecureRandom.hex
       @date  = Time.now.to_i
     end
@@ -23,15 +23,23 @@ module Tinplate
       }
     end
 
+    def verb
+      @image_name.empty? ? "GET" : "POST"
+    end
+
+    def content_type
+      verb == "GET" ? "" : "multipart/form-data; boundary=-----------RubyMultipartPost"
+    end
+
     def signature_components
       [
         Tinplate.configuration.private_key,
-        "GET",
-        "", # Content-Type for GET requests is blank
-        URI.encode(@image_name).downcase,
+        verb,
+        content_type,
+        URI.encode_www_form_component(@image_name).downcase,
         @date.to_i,
         @nonce,
-        "http://api.tineye.com/rest/#{@action}/",
+        "https://api.tineye.com/rest/#{@action}/",
         hash_to_sorted_query_string(@params),
       ]
     end
