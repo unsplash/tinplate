@@ -18,7 +18,7 @@ module Tinplate
 
       response = request("search", options.merge(img))
 
-      Tinplate::SearchResults.new(response["results"])
+      Tinplate::SearchResults.new(response)
     end
 
     def remaining_searches

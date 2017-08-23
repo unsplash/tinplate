@@ -31,57 +31,90 @@ describe Tinplate::TinEye do
 
   describe "#search" do
     let(:valid_response) do
-      {
-        stats: {
-          timestamp:  "1259096177.74",
-          query_time: "2.46"
-        },
-        code:     200,
-        messages: [],
-        results: {
-          total_backlinks: 3,
-          total_results: 2,
-          matches: [
-            {
-              width: 400,
-              image_url: "http://images.tineye.com/result/0f1e84b7b7538e8e7de048f4d45eb8f579e3e999941b3341ed9a754eb447ebb1",
-              backlinks: [
-                {
-                  url: "http://weblogs.newsday.com/features/home/cheap_thrills_blog/stripey-yarnDIY-thumb.jpeg",
-                  crawl_date: "2012-06-30",
-                  backlink: "http://weblogs.newsday.com/features/home/cheap_thrills_blog/2007/05/"
-                }
-              ],
-              format: "JPEG",
-              overlay: "overlay/507bb6bf9a397284e2330be7c0671aadc7319b4b/0f1e84b7b7538e8e7de048f4d45eb8f579e3e999941b3341ed9a754eb447ebb1?m21=-9.06952e-05&m22=0.999975&m23=0.0295591&m11=0.999975&m13=-0.0171177&m12=9.06952e-05",
-              contributor: true,
-              size: 50734,
-              height: 300
-            },
-            {
-              width: 180,
-              image_url: "http://images.tineye.com/result/0dd198eed842082619fe783e73bfd2c9291522d973ad64b871e605530b817800",
-              backlinks: [
-                {
-                  url: "http://photos3.meetupstatic.com/photos/event/a/7/2/5/global_5622789.jpeg",
-                  crawl_date: "2012-06-30",
-                  backlink: "http://www.meetup.com/geneva-meetup/calendar/11331213/"
-                },
-                {
-                  url: "http://photos3.meetupstatic.com/photos/event/a/7/2/5/global_5622789.jpeg",
-                  crawl_date: "2012-06-29",
-                  backlink: "http://www.meetup.com/geneva-meetup/calendar/11316812/"
-                }
-              ],
-              format: "JPEG",
-              overlay: "overlay/507bb6bf9a397284e2330be7c0671aadc7319b4b/0dd198eed842082619fe783e73bfd2c9291522d973ad64b871e605530b817800?m21=0.00156478&m22=2.21849&m23=-0.0262089&m11=2.21849&m13=0.254416&m12=-0.00156478",
-              contributor: false,
-              size: 10010,
-              height: 135
-            }
-          ]
+      <<-JSON
+        {
+          "stats": {
+            "timestamp": "1488909217.20",
+            "query_time": "4.74",
+            "total_backlinks": 26135,
+            "total_collection": 57,
+            "total_results": 6683,
+            "total_stock": 4,
+            "total_filtered_results": 6683
+          },
+          "code": 200,
+          "messages": [],
+          "results": {
+            "matches": [
+              {
+                "domain": "designerstalk.com",
+                "backlinks": [
+                  {
+                    "url": "http://www.cybersalt.org/images/funnypictures/cats/catmelonhead.jpg",
+                    "crawl_date": "2015-03-18",
+                    "backlink": "http://www.designerstalk.com/forums/tv-film/67944-dredd-2012-a-post904441.html"
+                  },
+                  {
+                    "url": "http://www.cybersalt.org/images/funnypictures/cats/catmelonhead.jpg",
+                    "crawl_date": "2015-07-09",
+                    "backlink": "http://www.designerstalk.com/forums/tv-film/67944-dredd-2012-a-post888204.html"
+                  },
+                  {
+                    "url": "http://www.cybersalt.org/images/funnypictures/cats/catmelonhead.jpg",
+                    "crawl_date": "2015-03-20",
+                    "backlink": "http://www.designerstalk.com/forums/tv-film/67944-dredd-2012-a-post887253.html"
+                  },
+                  {
+                    "url": "http://www.cybersalt.org/images/funnypictures/cats/catmelonhead.jpg",
+                    "crawl_date": "2015-03-11",
+                    "backlink": "http://www.designerstalk.com/forums/tv-film/67944-dredd-2012-a-last-post.html"
+                  },
+                  {
+                    "url": "http://www.cybersalt.org/images/funnypictures/cats/catmelonhead.jpg",
+                    "crawl_date": "2015-03-11",
+                    "backlink": "http://www.designerstalk.com/forums/tv-film/67944-dredd-2012-a.html"
+                  }
+                ],
+                "format": "JPEG",
+                "filesize": 239481,
+                "overlay": "overlay/dca08fc6b2ec4b9e04f94a4e29223f6af3dd6555/ba97680a685da25e5910b8cb95d6e9680be1fab360a0daad8a8a537ab992948f?m21=-4.63347e-05&m22=0.999952&m23=0.00784483&m11=0.999952&m13=0.00137017&m12=4.63347e-05",
+                "height": 451,
+                "width": 531,
+                "image_url": "http://img.tineye.com/result/ba97680a685da25e5910b8cb95d6e9680be1fab360a0daad8a8a537ab992948f",
+                "query_hash": "dca08fc6b2ec4b9e04f94a4e29223f6af3dd6555",
+                "top_level_domain": "designerstalk.com",
+                "tags": [],
+                "size": 239481
+              },
+              {
+                "domain": "reddit.com",
+                "backlinks": [
+                  {
+                    "url": "http://www.cybersalt.org/images/funnypictures/cats/catmelonhead.jpg",
+                    "crawl_date": "2016-07-16",
+                    "backlink": "https://www.reddit.com/r/OldAsTheNet/"
+                  },
+                  {
+                    "url": "https://i.imgur.com/s69Vo.jpg",
+                    "crawl_date": "2016-03-24",
+                    "backlink": "https://www.reddit.com/r/RoastMe/comments/3j7e80/i_fuel_myself_on_the_roasts_of_the_many/"
+                  }
+                ],
+                "format": "JPEG",
+                "filesize": 239481,
+                "overlay": "overlay/dca08fc6b2ec4b9e04f94a4e29223f6af3dd6555/ba97680a685da25e5910b8cb95d6e9680be1fab360a0daad8a8a537ab992948f?m21=-4.63347e-05&m22=0.999952&m23=0.00784483&m11=0.999952&m13=0.00137017&m12=4.63347e-05",
+                "height": 451,
+                "width": 531,
+                "image_url": "http://img.tineye.com/result/ba97680a685da25e5910b8cb95d6e9680be1fab360a0daad8a8a537ab992948f",
+                "query_hash": "dca08fc6b2ec4b9e04f94a4e29223f6af3dd6555",
+                "top_level_domain": "reddit.com",
+                "tags": [],
+                "size": 239481
+              }
+            ]
+          }
         }
-      }.to_json
+      JSON
     end
 
     it "parses results from URL search" do
@@ -89,10 +122,19 @@ describe Tinplate::TinEye do
       allow(tineye).to receive(:connection).and_return(connection)
 
       results = tineye.search(image_url: "http://example.com/photo.jpg")
-      expect(results.total_results).to eq 2
-      expect(results.total_backlinks).to eq 3
-      expect(results.matches.count). to eq 2
+      stats = {
+        timestamp:              "1488909217.20",
+        query_time:             "4.74",
+        total_backlinks:        26135,
+        total_collection:       57,
+        total_results:          6683,
+        total_stock:            4,
+        total_filtered_results: 6683
+      }
 
+      expect(results.stats.to_h).to eq stats
+      expect(results.matches.count). to eq 2
+      expect(results.matches.first.tags).to be_an Array
       expect(results.matches.first.backlinks.first).to be_a OpenStruct
     end
 
@@ -107,9 +149,9 @@ describe Tinplate::TinEye do
 
       results = tineye.search(image_path: path)
 
-      expect(results.total_results).to eq 2
-      expect(results.total_backlinks).to eq 3
-      expect(results.matches.count). to eq 2
+      expect(results.stats.total_results).to eq 6683
+      expect(results.stats.total_backlinks).to eq 26135
+      expect(results.matches.count).to eq 2
 
       expect(results.matches.first.backlinks.first).to be_a OpenStruct
     end
