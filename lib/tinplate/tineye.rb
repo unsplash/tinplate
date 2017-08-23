@@ -23,9 +23,14 @@ module Tinplate
 
     def remaining_searches
       results = request("remaining_searches")["results"]
-      OpenStruct.new(remaining_searches: results["remaining_searches"],
-                     start_date:  DateTime.parse(results["start_date"]),
-                     expire_date: DateTime.parse(results["expire_date"]))
+
+      bundles = results["bundles"].map do |bundle|
+        OpenStruct.new(remaining_searches: bundle["remaining_searches"],
+                       start_date:  DateTime.parse(bundle["start_date"]),
+                       expire_date: DateTime.parse(bundle["expire_date"]))
+      end
+
+      OpenStruct.new(total_remaining_searches: results["total_remaining_searches"], bundles: bundles)
     end
 
     def image_count

@@ -195,19 +195,36 @@ describe Tinplate::TinEye do
 
   describe "#remaining_searches" do
     let(:valid_response) do
-      {
-        stats: {
-          timestamp: "1250535183.20",
-          query_time: "0.01"
-        },
-        code:     200,
-        messages: [],
-        results: {
-          remaining_searches: 24998,
-          start_date:  "2009-09-18 16:01:49 UTC",
-          expire_date: "2009-11-02 16:01:49 UTC"
+      <<-JSON
+        {
+          "stats": {
+            "timestamp": "1490029267.12",
+            "query_time": "0.07"
+          },
+          "code": 200,
+          "messages": [],
+          "results": {
+            "bundles": [
+              {
+                "remaining_searches": 719,
+                "start_date": "2016-12-17 03:42:50 UTC",
+                "expire_date": "2018-12-17 03:42:50 UTC"
+              },
+              {
+                "remaining_searches": 10000,
+                "start_date": "2017-02-25 16:31:09 UTC",
+                "expire_date": "2019-02-25 16:31:09 UTC"
+              },
+              {
+                "remaining_searches": 10000,
+                "start_date": "2017-03-19 09:50:16 UTC",
+                "expire_date": "2019-03-19 09:50:16 UTC"
+              }
+            ],
+            "total_remaining_searches": 20719
+          }
         }
-      }.to_json
+      JSON
     end
 
     it "returns parsed object" do
@@ -215,9 +232,10 @@ describe Tinplate::TinEye do
       allow(tineye).to receive(:connection).and_return(connection)
 
       remaining = tineye.remaining_searches
-      expect(remaining.remaining_searches).to eq 24998
-      expect(remaining.start_date).to  eq DateTime.parse("2009-09-18 16:01:49 UTC")
-      expect(remaining.expire_date).to eq DateTime.parse("2009-11-02 16:01:49 UTC")
+      expect(remaining.bundles.first.remaining_searches).to eq 719
+      expect(remaining.bundles.first.start_date).to  eq DateTime.parse("2016-12-17 03:42:50 UTC")
+      expect(remaining.bundles.first.expire_date).to eq DateTime.parse("2018-12-17 03:42:50 UTC")
+      expect(remaining.total_remaining_searches).to eq 20719
     end
 
     it "raises on non-200 response" do
