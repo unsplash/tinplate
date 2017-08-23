@@ -45,7 +45,7 @@ module Tinplate
     end
 
     def signature
-      OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"),
+      OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha256"),
                               Tinplate.configuration.private_key,
                               signature_components.join)
     end
