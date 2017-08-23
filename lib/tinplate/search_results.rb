@@ -1,9 +1,8 @@
 module Tinplate
   class SearchResults < OpenStruct
     def initialize(data)
-      super total_backlinks: data["total_backlinks"],
-            total_results:   data["total_results"],
-            matches:         parsed_matches(data["matches"])
+      super stats:   OpenStruct.new(data["stats"]),
+            matches: parsed_matches(data["results"]["matches"])
     end
 
     private

@@ -49,9 +49,9 @@ There are only three API actions available: `search`, `remaining_searches` (to c
 tineye = Tinplate::TinEye.new
 results = tineye.search(image_url: "http://example.com/photo.jpg")
 
-results.total_results    # => 2
-results.total_backlinks  # => 3
-results.matches          # => an Array of matched images (see below)
+results.stats.total_results    # => 2
+results.stats.total_backlinks  # => 3
+results.matches                # => an Array of matched images (see below)
 
 results.matches.each do |match|
   # Do what you like with this matched image. The world is your oyster.
@@ -77,9 +77,14 @@ results = tineye.search(image_path: "/home/alice/example.jpg")
 An `OpenStruct` object with the following attributes (/w example values):
 
 ```ruby
+domain: "ucsb.edu",
+top_level_domain: "ucsb.edu",
 width: 400
 height: 300
-size: 50734
+size: 50734,
+filesize: 195840,
+score: 88.9,
+tags: ["collection"],
 image_url: "http://images.tineye.com/result/0f1e84b7b7538e8e7de048f4d45eb8f579e3e999941b3341ed9a754eb447ebb1",
 format: "JPEG",
 contributor: true,

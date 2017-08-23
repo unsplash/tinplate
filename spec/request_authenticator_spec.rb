@@ -5,7 +5,7 @@ describe Tinplate::RequestAuthenticator do
   let(:nonce) { "ABCD1234" }
 
   context "without image_name (i.e. GET request)" do
-    let(:sig)   { "e4ed817c186b0ca701b73bcd051081a8e44d0cfc" }
+    let(:sig)   { "3fff4830af34042a3e98a9d45e45e80694f864a6ee4abef7934a3f2c4d20d287" }
 
     let(:authenticator) do
       auth = Tinplate::RequestAuthenticator.new("image_count", { offset: 1, limit: 2 })
@@ -49,7 +49,7 @@ describe Tinplate::RequestAuthenticator do
   end
 
   context "with image_name (i.e. POST request)" do
-    let(:sig)   { "0a4ba8627ca3fb22a1fd2d535b69e2fb56475bd4" }
+    let(:sig)   { "780bf5b105520ad7bd79aae72994e8d03828dead813a49d2f70f83a461221bd0" }
 
     let(:authenticator) do
       auth = Tinplate::RequestAuthenticator.new("search", { offset: 1, limit: 2 }, "Pretty Image.jpg")
