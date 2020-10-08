@@ -26,8 +26,8 @@ module Tinplate
 
       bundles = results["bundles"].map do |bundle|
         OpenStruct.new(remaining_searches: bundle["remaining_searches"],
-                       start_date:  DateTime.parse(bundle["start_date"]),
-                       expire_date: DateTime.parse(bundle["expire_date"]))
+                       start_date:  Time.parse(bundle["start_date"]),
+                       expire_date: Time.parse(bundle["expire_date"]))
       end
 
       OpenStruct.new(total_remaining_searches: results["total_remaining_searches"], bundles: bundles)

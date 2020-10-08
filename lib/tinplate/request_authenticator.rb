@@ -2,6 +2,7 @@
 
 require "securerandom"
 require "uri"
+require "openssl"
 
 module Tinplate
   class RequestAuthenticator

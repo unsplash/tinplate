@@ -233,8 +233,8 @@ describe Tinplate::TinEye do
 
       remaining = tineye.remaining_searches
       expect(remaining.bundles.first.remaining_searches).to eq 719
-      expect(remaining.bundles.first.start_date).to  eq DateTime.parse("2016-12-17 03:42:50 UTC")
-      expect(remaining.bundles.first.expire_date).to eq DateTime.parse("2018-12-17 03:42:50 UTC")
+      expect(remaining.bundles.first.start_date).to  eq Time.parse("2016-12-17 03:42:50 UTC")
+      expect(remaining.bundles.first.expire_date).to eq Time.parse("2018-12-17 03:42:50 UTC")
       expect(remaining.total_remaining_searches).to eq 20719
     end
 
