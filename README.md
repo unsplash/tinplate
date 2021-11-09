@@ -12,11 +12,15 @@ gem 'tinplate'
 
 And then execute:
 
-    $ bundle
+```bash
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install tinplate
+```bash
+$ gem install tinplate
+```
 
 ## Configuration
 
@@ -24,7 +28,6 @@ First you've got to let Tinplate know what your TinEye API keys are. In a Rails 
 
 ```ruby
 Tinplate.configure do |config|
-  config.public_key  = "YOUR PUBLIC API KEY"
   config.private_key = "YOUR PRIVATE API KEY"
   config.test        = false
 end
