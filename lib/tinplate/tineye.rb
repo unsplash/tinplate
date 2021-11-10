@@ -47,12 +47,12 @@ module Tinplate
         Faraday::UploadIO.new(params.delete(:image_path), "image/jpeg")
       end
 
-      auth = Tinplate::RequestAuthenticator.new(action, params, upload && upload.original_filename)
-      params.merge!(auth.params)
-
       params.merge!(image_upload: upload) if upload
 
-      response = ::JSON.parse(connection.send(http_verb, "#{action}/", params).body)
+      headers = { "x-api-key" => Tinplate.configuration.private_key }
+
+      response = connection.send(http_verb, "#{action}/", params, headers)
+      response = ::JSON.parse(response.body)
 
       if response["code"] != 200
         raise Tinplate::Error.from_response(response["code"], response["messages"][0], response["messages"][1])
@@ -63,9 +63,9 @@ module Tinplate
 
     def connection
       @conn ||= Faraday.new(url: "https://api.tineye.com/rest/") do |faraday|
-        faraday.request  :multipart
-        faraday.request  :url_encoded
-        faraday.adapter  Faraday.default_adapter
+        faraday.request :multipart
+        faraday.request :url_encoded
+        faraday.adapter Faraday.default_adapter
       end
     end
 
