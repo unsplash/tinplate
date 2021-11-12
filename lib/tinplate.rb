@@ -4,7 +4,6 @@ require "json"
 require "tinplate/version"
 require "tinplate/configuration"
 require "tinplate/tineye"
-require "tinplate/request_authenticator"
 require "tinplate/search_results"
 require "tinplate/errors"
 
