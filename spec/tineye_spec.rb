@@ -12,7 +12,7 @@ describe Tinplate::TinEye do
         query_time: "0.51"
       },
       code:     400,
-      messages: ["API_ERROR", "Couldn't download URL, caught exception: HTTPError()"],
+      messages: ["API_ERROR", "Generic Error"],
       results:  []
     }.to_json
   end
@@ -24,7 +24,7 @@ describe Tinplate::TinEye do
         query_time: "0.51"
       },
       code:     500,
-      messages: ["NO_SIGNATURE_ERROR", "Image too simple or too small to create unique signature."],
+      messages: ["Image too simple or too small to create unique signature."],
       results:  []
     }.to_json
   end
