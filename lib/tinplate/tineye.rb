@@ -55,7 +55,7 @@ module Tinplate
       response = ::JSON.parse(response.body)
 
       if response["code"] != 200
-        raise Tinplate::Error.from_response(response["code"], response["messages"][0], response["messages"][1])
+        raise Tinplate::Error.from_response(response["code"], response["messages"])
       end
 
       response
