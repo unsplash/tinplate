@@ -20,6 +20,7 @@ module Tinplate
         when /Could not download/               then Tinplate::InaccessibleURLError
         when /Please supply an image/           then Tinplate::InvalidSearchError
         when /Error reading image data/         then Tinplate::InvalidImageDataError
+        when /Too many concurrent requests/     then Tinplate::TooManyRequestsError
       end
     end
   end
@@ -31,4 +32,5 @@ module Tinplate
   class InaccessibleURLError < Error; end
   class InvalidSearchError < Error; end
   class InvalidImageDataError < Error; end
+  class TooManyRequestsError < Error; end
 end
