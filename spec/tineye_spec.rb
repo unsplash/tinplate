@@ -29,6 +29,15 @@ describe Tinplate::TinEye do
     }.to_json
   end
 
+  let(:too_many_requests_error_response) do
+    {
+      stats:    "",
+      code:     429,
+      messages: ["Too many concurrent requests", "Max concurrent requests is 4"],
+      results:  []
+    }.to_json
+  end
+
   describe "#search" do
     let(:valid_response) do
       <<-JSON
@@ -163,6 +172,14 @@ describe Tinplate::TinEye do
         expect {
           tineye.search(image_url: "http://example.com/photo.jpg")
         }.to raise_error(Tinplate::Error)
+      end
+
+      it "raises a TooManyRequestsError" do
+        connection = double(get: double(body: too_many_requests_error_response))
+        allow(tineye).to receive(:connection).and_return(connection)
+        expect {
+          tineye.search(image_url: "http://example.com/photo.jpg")
+        }.to raise_error(Tinplate::TooManyRequestsError)
       end
 
       it "raises a NoSignatureError" do
