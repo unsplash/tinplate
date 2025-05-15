@@ -154,7 +154,7 @@ describe Tinplate::TinEye do
       upload = double(original_filename: "example.jpg")
 
       allow(tineye).to receive(:connection).and_return(connection)
-      allow(Faraday::UploadIO).to receive(:new).with(path, "image/jpeg").and_return upload
+      allow(Faraday::Multipart::FilePart).to receive(:new).with(path, "image/jpeg").and_return upload
 
       results = tineye.search(image_path: path)
 

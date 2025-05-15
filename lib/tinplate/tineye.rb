@@ -44,7 +44,7 @@ module Tinplate
 
       upload = if params[:image_path]
         http_verb = :post
-        Faraday::UploadIO.new(params.delete(:image_path), "image/jpeg")
+        Faraday::Multipart::FilePart.new(params.delete(:image_path), "image/jpeg")
       end
 
       params.merge!(image_upload: upload) if upload

@@ -1,5 +1,7 @@
 require "faraday"
+require "faraday/multipart"
 require "json"
+require "ostruct"
 
 require "tinplate/version"
 require "tinplate/configuration"
